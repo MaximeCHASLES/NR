@@ -1,5 +1,10 @@
 {% extends "main/layout/base.html" %}
+
 {% load static %}
+
+{% block scripts %}
+<script src="{% static 'main/js/form.js' %}" defer></script>
+{% endblock %}
 
 {% block title %} | Animaux trouvés{% endblock %}
 
@@ -7,29 +12,48 @@
 
     <h1>Animaux trouvés</h1>
 
-        <form id="found-search">
-        <span class="input-container">
-            
-            <p class="input-mask">Choisir une localisation</p>
-            <input class="search-input" type="text" placeholder="Choisir une localisation" id="location">
+        <form id="filtres-resultats" method="post" action="{% url 'found' %}">
 
-        </span>
-        
-        <div class="search-list">
-            <ul class="search-list__locate">
-                <li class="suggestion"><a href="">Utiliser ma position actuelle</a></li>
+            {% csrf_token %}
+
+            <fieldset>
+                <legend>Filtrer les résultats</legend>
                 
-            </ul>
-        </div>
+                <div class="input-wrapper">
+                    <input id="position" name="position" type="text" placeholder="Choisir la localisation" autocomplete="off" required>
+                    <div class="position__menu">
+                        <ul>
+                            <li class="menu__choix" id="find-me">Utiliser ma position</li>
+                        </ul>
+                    </div>
+                </div>
+                
 
-        <!-- <label for="specie">Espèce : </label>
-        <select name="specie" id="specie">
-            <option value="cat">Chat</option>
-            <option value="dog">Chien</option>
-        </select>
-        <input type="submit" value="Rechercher"> -->
+                <div class="input-wrapper">
+                    <input id="espece" name="espece" type="text" placeholder="Choisir l'espèce" autocomplete="off" required>
+                    <div class="espece__menu espece">
+                        <ul>
+                            
+                        </ul>
+                    </div>
+                </div>
+    
+                <button type="submit">Rechercher</button>
 
-    </form>
+            </fieldset>
+            
+        </form>
+
+        {% if position %}
+        <h2>{{ espece }}s perdus à {{ position }}</h2>
+        {% else %}
+        <h2>Dernières annonces publiées</h2>
+        {% endif %}
+
+
+        <a href="{% url 'home' %}">Homepage</a>
+        
+        
 
     
 

@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -16,13 +17,15 @@ def found(request):
     Page des animaux trouvés.
     Found pets page.
     """
-    if request.GET:
-        context = {
-            "location": request.GET["location"],
-            "specie": request.GET["specie"]
-        }
-        return render(request, "main/found.html", context)
-
+    if request.method == "POST":
+        
+        position = request.POST["position"]
+        espece = request.POST["espece"]
+        
+        return render(request, "main/found.html", {
+            "position": position,
+            "espece": espece
+        })
     return render(request, "main/found.html")
 
 

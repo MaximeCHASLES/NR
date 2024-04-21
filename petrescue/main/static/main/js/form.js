@@ -1,56 +1,128 @@
-const inputLocation = document.querySelector('input#location')
-const inputMask = document.querySelector('.input-mask')
-const inputList = document.querySelector('.search-list')
+const especes = [
+    "Chat",
+    "Chien",
+    "Furet"
+]
 
-inputMask.addEventListener('click', displayList)
-inputLocation.addEventListener('input', diplaySuggests)
+const inputPosition = document.querySelector('input#position');
+const inputEspece = document.querySelector('input#espece');
+const divMenu = document.querySelector('.position__menu');
+const ulMenuPosition = document.querySelector('.position__menu > ul');
+const ulMenuEspece = document.querySelector('.espece__menu > ul');
+const liFindMe = document.querySelector('#find-me');
 
-function displayList(event) {
-    event.currentTarget.classList.add("inactive");
-    inputList.classList.add('active')
 
-}
+liFindMe.addEventListener('click', geoLocation)
+inputPosition.addEventListener('focus', affichageMenu);
+inputPosition.addEventListener('blur', masquageMenu);
+inputPosition.addEventListener('input', autoCompletion);
+inputEspece.addEventListener('focus', affichageMenu);
+inputEspece.addEventListener('blur', masquageMenu);
 
-function diplaySuggests(event) {
-    const suggestList = document.querySelector('.search-list__locate');
+
+// 
+function affichageMenu(event) {
+    // divMenu.classList.add('active');
+    const nextElement = event.target.nextElementSibling;
+    nextElement.classList.add('active');
+    if (nextElement.classList.contains('espece')) {
+        ulMenuEspece.innerHTML = "";
+        especes.forEach(espece => {
+            const li = document.createElement('li');
+            li.className = "menu__choix";
+            li.textContent = espece;
+            li.addEventListener('click', updateInputEspece);
+            ulMenuEspece.appendChild(li);
+        })
+    }
+} // affichageMenu
+
+//
+function masquageMenu(event) {
+    setTimeout(() => {
+        // divMenu.classList.remove('active');
+        const nextElement = event.target.nextElementSibling;
+        nextElement.classList.remove('active');
+    }, 100)
+    ;
+} // masquageMenu
+
+
+function updateInputPosition(event) {
+    console.log(event.currentTarget)
+    inputPosition.value = event.currentTarget.dataset.ville;
+} // updateInputPosition
+
+function updateInputEspece(event) {
+    inputEspece.value = event.currentTarget.textContent;
+
+} // updateInputEspece
+
+
+function geoLocation(event) {
+    if (!navigator.geolocation) {
+        console.log("La géolocalisation n'est pas supportée par votre navigateur.");
+    } else {
+        console.log("Localisation…");
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+    }
+} // geoLocation
+
+
+function geoSuccess(position) {
+    console.log("Localisé à (coordonnées) : ");
+    console.log(position.coords);
+
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    const promise = axios.get(`https://geo.api.gouv.fr/communes?lat=${lat}&lon=${lng}&fields=code,nom,codesPostaux,surface,population,centre,contour`);
+
+    promise.then((response) => {
+        console.log("Localisé à (ville) : ");
+        console.log(response.data[0])
+        const data = response.data[0];
+        inputPosition.value = data.nom;
+    })
+} // geoSuccess
+
+
+function geoError() {
+    console.log("Impossible de déterminer votre position.");
+} // geoError
+
+
+function autoCompletion(event) {
     const input = event.target.value;
-    suggestList.innerHTML= "";
-
-    url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement&boost=population&limit=5`;
+    const promise = axios.get(`https://geo.api.gouv.fr/communes?nom=${input}&fields=departement&boost=population&limit=5`);
     
-    // Requête http GET
-    axios.get(url)
-    .then(function (response) {
-        // en cas de réussite de la requête
-    console.log(response);
-    const datas = response.data
+    promise.then((response) => {
+        ulMenuPosition.innerHTML = "";
+        const datas = response.data;
 
-    display(datas)
-    
-
+        if (datas.length > 0) {
+            datas.forEach(data => {
+                const li = document.createElement('li');
+                li.textContent = `${data.nom} (${data.departement.code})`;
+                li.className = "menu__choix";
+                li.dataset.ville = data.nom;
+                li.addEventListener('click', updateInputPosition);
+                ulMenuPosition.appendChild(li);   
+            })
+        } else {
+            if (input == "") {
+                const li = document.createElement('li');
+                li.textContent = "Utiliser ma position";
+                li.id = "find-me";
+                li.className = "menu__choix";
+                li.addEventListener('click', geoLocation);
+                ulMenuPosition.appendChild(li)
+            } else {
+                const li = document.createElement('li');
+                li.textContent = "Aucun résultat";
+                li.className = "menu__no-result";
+                ulMenuPosition.appendChild(li)
+            }  
+        } 
     })
-    .catch(function (error) {
-    // en cas d’échec de la requête
-    console.log(error);
-    })
-    .finally(function () {
-    // dans tous les cas
-    });
-    
-}
-
-function display(datas) {
-    datas.forEach(data => {
-        const ul = document.querySelector('.search-list__locate');
-
-        const nom = data.nom;
-        const dpt = data.departement.code;
-
-        const li = document.createElement('li');
-        li.className = "suggestion";
-        li.textContent = nom + " (" + dpt + ")"
-        
-        ul.appendChild(li)
-
-    })
-}
+} // autoCompletion
