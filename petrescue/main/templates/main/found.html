@@ -1,0 +1,36 @@
+{% extends "main/layout/base.html" %}
+{% load static %}
+
+{% block title %} | Animaux trouvés{% endblock %}
+
+{% block body %}
+
+    <h1>Animaux trouvés</h1>
+
+        <form id="found-search">
+        <span class="input-container">
+            
+            <p class="input-mask">Choisir une localisation</p>
+            <input class="search-input" type="text" placeholder="Choisir une localisation" id="location">
+
+        </span>
+        
+        <div class="search-list">
+            <ul class="search-list__locate">
+                <li class="suggestion"><a href="">Utiliser ma position actuelle</a></li>
+                
+            </ul>
+        </div>
+
+        <!-- <label for="specie">Espèce : </label>
+        <select name="specie" id="specie">
+            <option value="cat">Chat</option>
+            <option value="dog">Chien</option>
+        </select>
+        <input type="submit" value="Rechercher"> -->
+
+    </form>
+
+    
+
+{% endblock %}

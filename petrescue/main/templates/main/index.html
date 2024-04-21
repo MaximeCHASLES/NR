@@ -1,0 +1,11 @@
+{% extends "main/layout/base.html" %}
+
+{% block title %} | Home{% endblock %}
+
+{% block body %}
+    <h1>Welcome on PetRescue's Homepage.</h1>
+
+    <a href="{% url 'lost' %}">Animaux perdus</a>
+
+    <a href="{% url 'found' %}">Animaux trouvés</a>
+{% endblock %} 

@@ -1,0 +1,28 @@
+/*** VARIABLES ***/
+
+/* Couleurs */
+:root {
+    --color-background: #ffffff;
+}
+
+/* Dimensions */
+:root {
+    /* Exemples */
+    --basic-font: 62.5%;
+}
+
+
+/*** PROPRIÉTÉS GÉNÉRALES ***/
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--basic-font);
+    background-color: var(--color-background);
+}
+
+
