@@ -8,4 +8,3 @@ class Animal(models.Model):
     location = models.CharField(max_length=64)
     photo = models.ImageField(upload_to='animal_photos/', blank=True)
     date = models.DateTimeField(auto_now=True)
-    

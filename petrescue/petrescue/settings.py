@@ -125,6 +125,8 @@ STATIC_URL += '?v=1/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Pour les fichiers téléchargés
+# URL pour accéder à une ressource de type média
 MEDIA_URL = '/media/'
+
+# Dossier où seront stockés les médias
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

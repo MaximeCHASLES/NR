@@ -1,3 +1,5 @@
+
+
 from django.urls import path
 from . import views
 
@@ -6,3 +8,4 @@ urlpatterns = [
     path("found", views.found, name="found"),
     path("lost", views.lost, name="lost"),
 ]
+

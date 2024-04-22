@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-# Create your views here.
+from main.models import Animal
+
 
 def index(request):
     """
@@ -18,9 +19,9 @@ def found(request):
     Found pets page.
     """
     if request.method == "POST":
-        
         position = request.POST["position"]
         espece = request.POST["espece"]
+        
         
         return render(request, "main/found.html", {
             "position": position,
@@ -34,4 +35,17 @@ def lost(request):
     Page des animaux perdus.
     Lost pets page.
     """
+    if request.method == "POST":
+        position = request.POST["position"]
+        espece = request.POST["espece"]
+        Animals = Animal.objects.all()
+        
+        return render(request, "main/lost.html", {
+            "position": position,
+            "espece": espece,
+            "animaux": Animals
+        })
     return render(request, "main/lost.html")
+
+
+

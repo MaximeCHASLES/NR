@@ -8,10 +8,8 @@ h2 {
     font-family: sans-serif;
 }
 
-#filtres-resultats {
-}
 
-fieldset {
+fieldset#filtre {
     display: flex;
     justify-content: space-between;
 }
@@ -40,8 +38,6 @@ input#espece {
     background-position: 10px;
 }
 
-
-
 .position__menu, .espece__menu {
     display: none;
     position: absolute;
@@ -49,8 +45,7 @@ input#espece {
     background-color: white;
     width: 18rem;
     box-shadow: 0px 10px 13px -7px #000000;
-    border-radius: 10px;
-    
+    border-radius: 10px;  
 }
 
 .menu__choix, .menu__no-result {
@@ -66,4 +61,3 @@ input#espece {
 .active {
     display: block;
 }
-

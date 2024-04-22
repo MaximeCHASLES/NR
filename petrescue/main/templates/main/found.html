@@ -1,60 +1,21 @@
-{% extends "main/layout/base.html" %}
+{% extends "main/layout/annonces.html" %}
 
 {% load static %}
 
-{% block scripts %}
-<script src="{% static 'main/js/form.js' %}" defer></script>
-{% endblock %}
-
 {% block title %} | Animaux trouvés{% endblock %}
 
-{% block body %}
-
+{% block h1 %}
     <h1>Animaux trouvés</h1>
+{% endblock %}
 
-        <form id="filtres-resultats" method="post" action="{% url 'found' %}">
+{% block formtag %}
+    <form id="filtres-resultats" method="post" action="{% url 'found' %}">
+{% endblock %}
 
-            {% csrf_token %}
-
-            <fieldset>
-                <legend>Filtrer les résultats</legend>
-                
-                <div class="input-wrapper">
-                    <input id="position" name="position" type="text" placeholder="Choisir la localisation" autocomplete="off" required>
-                    <div class="position__menu">
-                        <ul>
-                            <li class="menu__choix" id="find-me">Utiliser ma position</li>
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <div class="input-wrapper">
-                    <input id="espece" name="espece" type="text" placeholder="Choisir l'espèce" autocomplete="off" required>
-                    <div class="espece__menu espece">
-                        <ul>
-                            
-                        </ul>
-                    </div>
-                </div>
-    
-                <button type="submit">Rechercher</button>
-
-            </fieldset>
-            
-        </form>
-
-        {% if position %}
-        <h2>{{ espece }}s perdus à {{ position }}</h2>
-        {% else %}
+{% block h2 %}
+    {% if position %}
+        <h2>{{ espece }}s trouvés à {{ position }}</h2>
+    {% else %}
         <h2>Dernières annonces publiées</h2>
-        {% endif %}
-
-
-        <a href="{% url 'home' %}">Homepage</a>
-        
-        
-
-    
-
+    {% endif %}
 {% endblock %}

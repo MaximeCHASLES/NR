@@ -1,0 +1,57 @@
+{% extends "main/layout/base.html" %}
+
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'main/js/form.js' %}" defer></script>
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {% block h1 %}
+    {% endblock %}
+
+        {% block formtag %}
+        {% endblock %}
+
+            {% csrf_token %}
+
+            <fieldset id="filtre">
+                <legend>Filtrer les résultats</legend>
+                
+                <div class="input-wrapper">
+                    <input id="position" name="position" type="text" placeholder="Choisir la localisation" autocomplete="off" required>
+                    <div class="position__menu">
+                        <ul>
+                            <li class="menu__choix" id="find-me">Utiliser ma position</li>
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <div class="input-wrapper">
+                    <input id="espece" name="espece" type="text" placeholder="Choisir l'espèce" autocomplete="off" required>
+                    <div class="espece__menu espece">
+                        <ul>
+                            
+                        </ul>
+                    </div>
+                </div>
+    
+                <button type="submit">Rechercher</button>
+
+            </fieldset>
+            
+        </form>
+
+        {% block h2 %}
+        {% endblock %}
+
+        {% block section_annonces %}
+        {% endblock %}
+
+        <a href="{% url 'home' %}">Homepage</a>
+  
+{% endblock %}
