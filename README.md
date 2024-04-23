@@ -5,20 +5,35 @@ PetRescue est une application web développée avec Django qui permet aux utilis
 ## Installation
 1. Clonez le dépôt GitHub :
 ```
-git clone https://github.com/votre-utilisateur/votre-projet.git
+git clone https://github.com/MaximeCHASLES/NR.git
 ```
 2. Accédez au répertoire du projet :
 ```
-cd votre-projet
+cd NR
 ```
-3. Créer un environnement virtuel pour le projet :
+3. Créer un environnement virtuel pour le projet (optionnel) :
 ```
 python3 -m venv .venv
 ```
-4. Installez les dépendances Python requises :
+4. Activer l'environnement virtuel:
+
+- Sur Windows :
+
+  ```
+  .\env\Scripts\activate
+  ```
+
+- Sur macOS et Linux :
+
+  ```
+  source env/bin/activate
+  ```
+
+5. Installez les dépendances Python requises :
 ```
 pip install -r requirements.txt
 ```
+
 
 ## Utilisation
 ### Lancement du serveur
@@ -77,3 +92,5 @@ Les contributions sont les bienvenues !
 
 ## Licence
 Ce projet est sous licence [...].
+
+Enjoy
