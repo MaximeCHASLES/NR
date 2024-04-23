@@ -7,15 +7,11 @@ PetRescue est une application web développée avec Django qui permet aux utilis
 ```
 git clone https://github.com/MaximeCHASLES/NR.git
 ```
-2. Accédez au répertoire du projet :
-```
-cd NR
-```
-3. Créer un environnement virtuel pour le projet (optionnel) :
+2. Créer un environnement virtuel (optionnel) :
 ```
 python3 -m venv .venv
 ```
-4. Activer l'environnement virtuel:
+3. Activer l'environnement virtuel:
 
 - Sur Windows :
 
@@ -29,9 +25,13 @@ python3 -m venv .venv
   source env/bin/activate
   ```
 
-5. Installez les dépendances Python requises :
+4. Installez les dépendances Python requises :
 ```
 pip install -r requirements.txt
+```
+5. Accédez au répertoire du projet :
+```
+cd NR
 ```
 
 
