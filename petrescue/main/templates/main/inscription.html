@@ -1,0 +1,17 @@
+{% extends "main/layout/base.html" %}
+
+{% block title %} | Inscription{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue sur la page d'inscription</h1>
+
+
+    <form action="{% url 'inscription' %}" method="post">
+        {% csrf_token %}
+        {{ formulaire }}
+        <input type="submit" value="Inscription">
+        
+    </form>
+
+    
+{% endblock %} 

@@ -118,6 +118,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+ # Pour éviter la mise en cache par les navigateurs
 STATIC_URL += '?v=1/'
 
 # Default primary key field type

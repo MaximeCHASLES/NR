@@ -1,0 +1,23 @@
+{% extends "main/layout/base.html" %}
+
+{% block title %} | Connexion{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue sur la page de connexion</h1>
+
+
+    <form action="{% url 'connexion' %}" method="post">
+        {% csrf_token %}
+        <input name="identifiant" type="text" placeholder="Identifiant">
+        <input name="mot_de_passe" type="password" placeholder="Mot de passe">
+        <button name="connexion" type="submit">Connexion</button>
+    </form>
+
+    <a href="{% url 'inscription' %}">Créer un compte</a>
+
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+
+    
+{% endblock %} 

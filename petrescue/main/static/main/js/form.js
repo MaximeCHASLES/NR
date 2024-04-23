@@ -5,6 +5,7 @@ const especes = [
 ]
 
 const inputPosition = document.querySelector('input#position');
+const inputCode = document.querySelector('input#code');
 const inputEspece = document.querySelector('input#espece');
 const divMenu = document.querySelector('.position__menu');
 const ulMenuPosition = document.querySelector('.position__menu > ul');
@@ -49,13 +50,12 @@ function masquageMenu(event) {
 
 
 function updateInputPosition(event) {
-    console.log(event.currentTarget)
     inputPosition.value = event.currentTarget.dataset.ville;
+    inputCode.value = event.currentTarget.dataset.code;
 } // updateInputPosition
 
 function updateInputEspece(event) {
     inputEspece.value = event.currentTarget.textContent;
-
 } // updateInputEspece
 
 
@@ -71,7 +71,7 @@ function geoLocation(event) {
 
 function geoSuccess(position) {
     console.log("Localisé à (coordonnées) : ");
-    console.log(position.coords);
+    console.log([position.coords.latitude,position.coords.longitude]);
 
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
@@ -80,9 +80,10 @@ function geoSuccess(position) {
 
     promise.then((response) => {
         console.log("Localisé à (ville) : ");
-        console.log(response.data[0])
         const data = response.data[0];
         inputPosition.value = data.nom;
+        console.log(data.nom + " (code : " + data.code + ")");
+        inputCode.value = data.code;
     })
 } // geoSuccess
 
@@ -106,6 +107,7 @@ function autoCompletion(event) {
                 li.textContent = `${data.nom} (${data.departement.code})`;
                 li.className = "menu__choix";
                 li.dataset.ville = data.nom;
+                li.dataset.code = data.code;
                 li.addEventListener('click', updateInputPosition);
                 ulMenuPosition.appendChild(li);   
             })

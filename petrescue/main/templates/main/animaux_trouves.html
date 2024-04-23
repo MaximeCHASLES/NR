@@ -1,4 +1,4 @@
-{% extends "main/layout/annonces.html" %}
+{% extends "main/layout/animaux.html" %}
 
 {% load static %}
 
@@ -8,8 +8,8 @@
     <h1>Animaux trouvés</h1>
 {% endblock %}
 
-{% block formtag %}
-    <form id="filtres-resultats" method="post" action="{% url 'found' %}">
+{% block form %}
+    <form id="filtres-resultats" method="post" action="{% url 'trouves' %}">
 {% endblock %}
 
 {% block h2 %}

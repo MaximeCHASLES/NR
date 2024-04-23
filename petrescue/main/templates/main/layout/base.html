@@ -6,16 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetRescue{% block title %}{% endblock %}</title>
     <!-- <link rel="stylesheet" href="{% static 'main/css/reset.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
     <!-- <link rel="stylesheet" href="{% static 'main/css/base.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    {% block link %}
+    {% endblock %}
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <script src="{% static 'main/js/client.js' %}" defer></script>
-    <!-- <script src="{% static 'main/js/form.js' %}" defer></script> -->
     {% block scripts %}
     {% endblock %}
 </head>
 <body>
+
+    <a href="{% url 'accueil' %}">Accueil</a>
+    
     {% block body %}
     {% endblock %}   
+
+    
+    
 </body>
 </html>

@@ -1,11 +1,27 @@
 {% extends "main/layout/base.html" %}
 
-{% block title %} | Home{% endblock %}
+{% block title %} | Accueil{% endblock %}
 
 {% block body %}
+
     <h1>Welcome on PetRescue's Homepage.</h1>
 
-    <a href="{% url 'lost' %}">Animaux perdus</a>
+    {% if user.is_authenticated %}
+        <p>{{ request.user.first_name }}, vous êtes connecté</p>
+    {% else %}
+        <h2>Connectez-vous pour déposer une annonce.</h2>
+    {% endif %}
 
-    <a href="{% url 'found' %}">Animaux trouvés</a>
+    <a href="{% url 'perdus' %}">Animaux perdus</a>
+
+    <a href="{% url 'trouves' %}">Animaux trouvés</a>
+
+    <a href="{% url 'annonce' %}">Déposer une annonce</a>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'deconnexion' %}">Déconnexion</a>
+    {% else %}
+        <a href="{% url 'connexion' %}">Connexion</a>
+    {% endif %}
+
 {% endblock %} 

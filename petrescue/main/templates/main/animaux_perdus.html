@@ -1,0 +1,65 @@
+{% extends "main/layout/animaux.html" %}
+
+{% load static %}
+
+{% block title %} | Animaux perdus{% endblock %}
+
+{% block h1 %}
+    <h1>Animaux perdus</h1>
+{% endblock %}
+
+{% block form %}
+    <form id="filtres-resultats" method="post" action="{% url 'perdus' %}">
+{% endblock %}
+
+
+{% block h2 %}  
+{% endblock %}
+
+{% block section_annonces %}
+
+        <section class="annonces">
+
+            {% if position %}
+                <h2 class="annonces__titre-2">{{ espece }}s perdus à {{ position }}</h2>
+            {% else %}
+                <h2 class="annonces__titre-2">Dernières annonces publiées</h2>
+            {% endif %}
+
+            {% if animaux %}
+                <div class="annonce-wrapper">
+                    {% for animal in animaux %}
+                    <article class="annonce" data-lat="{{ animal.latitude }}" data-lng="{{ animal.longitude }}">
+                        <h3 class="annonce__titre-3">Annonce n°{{ animal.id }}</h3>
+                        <ul>
+                            <li>Nom de l'animal : {{ animal.name|title }}</li>
+                            <li>Espèce : {{ animal.specie|title }}</li>
+                            <li>Ville : {{ animal.location|title }}</li>
+                            <li>Date de l'annonce : {{ animal.date|date:"d/m/Y" }}</li>
+                        </ul>
+                        <img class="annonce__img" src="{{ animal.photo.url }}" alt="">
+                    </article>
+                {% endfor %}
+
+                </div>
+                
+
+            {% else %}
+                <p>Pas d'annonces</p>
+            {% endif %}
+
+        </section>
+{% endblock %}
+
+{% block section_carte %}
+    <div id="carte" data-code="{{ code }}"></div>
+{% endblock %}
+
+
+<!-- class Animal(models.Model):
+#     name = models.CharField(max_length=64, blank=True)
+#     isLost = models.BooleanField(default=True)
+#     specie = models.CharField(max_length=64)
+#     location = models.CharField(max_length=64)
+#     photo = models.ImageField(upload_to='animal_photos/', blank=True)
+#     date = models.DateTimeField(auto_now=True) -->

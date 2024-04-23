@@ -2,8 +2,16 @@
 
 {% load static %}
 
+{% block link %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/map.css' %}">
+{% endblock %}
+
 {% block scripts %}
-<script src="{% static 'main/js/form.js' %}" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="{% static 'main/js/form.js' %}" defer></script>
+    <script src="{% static 'main/js/map.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}{% endblock %}
@@ -13,10 +21,12 @@
     {% block h1 %}
     {% endblock %}
 
-        {% block formtag %}
+        {% block form %}
         {% endblock %}
 
+            <!-- Champs cachés -->
             {% csrf_token %}
+            <input type="hidden" id="code" name="code">
 
             <fieldset id="filtre">
                 <legend>Filtrer les résultats</legend>
@@ -46,12 +56,14 @@
             
         </form>
 
-        {% block h2 %}
-        {% endblock %}
 
         {% block section_annonces %}
         {% endblock %}
 
-        <a href="{% url 'home' %}">Homepage</a>
+        {% block section_carte %}
+        {% endblock %}
+
+
+        
   
 {% endblock %}

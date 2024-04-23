@@ -1,0 +1,7 @@
+Identifiants et mots de passe des utilisateurs factices pour effectuer les tests.
+
+johnDoe
+Vngtw2!W2q6Jy6S
+
+chuckNorris
+mfyT*Cdh@yCac5T
