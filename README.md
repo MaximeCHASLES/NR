@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ```
 5. Accédez au répertoire du projet :
 ```
-cd NR
+cd petrescue
 ```
 
 
