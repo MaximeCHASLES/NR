@@ -4,11 +4,11 @@ const especes = [
     "Furet"
 ]
 
-const inputPosition = document.querySelector('input#position');
+const inputPosition = document.querySelector('input#ville');
 const inputCode = document.querySelector('input#code');
 const inputEspece = document.querySelector('input#espece');
-const divMenu = document.querySelector('.position__menu');
-const ulMenuPosition = document.querySelector('.position__menu > ul');
+const divMenu = document.querySelector('.ville__menu');
+const ulMenuPosition = document.querySelector('.ville__menu > ul');
 const ulMenuEspece = document.querySelector('.espece__menu > ul');
 const liFindMe = document.querySelector('#find-me');
 

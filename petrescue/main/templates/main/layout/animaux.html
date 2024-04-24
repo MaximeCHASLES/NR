@@ -25,15 +25,15 @@
         {% endblock %}
 
             <!-- Champs cachés -->
-            {% csrf_token %}
+            <!-- {% csrf_token %} -->
             <input type="hidden" id="code" name="code">
 
             <fieldset id="filtre">
                 <legend>Filtrer les résultats</legend>
                 
                 <div class="input-wrapper">
-                    <input id="position" name="position" type="text" placeholder="Choisir la localisation" autocomplete="off" required>
-                    <div class="position__menu">
+                    <input id="ville" name="ville" type="text" placeholder="Choisir la localisation" autocomplete="off" required>
+                    <div class="ville__menu">
                         <ul>
                             <li class="menu__choix" id="find-me">Utiliser ma position</li>
                         </ul>

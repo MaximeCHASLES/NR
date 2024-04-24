@@ -35,31 +35,33 @@ def animaux_perdus(request):
     """Page des annonces des animaux perdus.
     
     """
-    animaux = Animal.objects.all()
-
-    context = {
-        "animaux": animaux,
-        "espece": "Animaux",
-        "code": "0"
-    }
-
-    if request.method == "POST":
-        position = request.POST["position"]
-        espece = request.POST["espece"]
-        code = request.POST["code"]
-        # animaux = Animal.objects.filter()
-        animaux = Animal.objects.all()
+    if request.GET:
+        ville = request.GET["ville"]
+        espece = request.GET["espece"]
+        code = request.GET["code"]
+        animaux = Animal.objects.filter(specie__iexact=espece, location__iexact=ville).order_by('-date')
+        nb_animaux = len(animaux)
 
         context = {
-            "position": position,
+            "ville": ville,
             "espece": espece,
+            "code": code,
             "animaux": animaux,
-            "code": code
+            "nb_animaux": nb_animaux
         }
-        
+
         return render(request, "main/animaux_perdus.html", context)
     
-    return render(request, "main/animaux_perdus.html", context)
+    else:
+        animaux = Animal.objects.all().order_by('-date')
+
+        context = {
+            "animaux": animaux,
+            "code": "0"
+        }
+    
+        return render(request, "main/animaux_perdus.html", context)
+
 
 
 def connexion(request):

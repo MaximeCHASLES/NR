@@ -18,7 +18,7 @@ fieldset#filtre {
     position: relative;
 }
 
-input#position {
+input#ville {
     width: 12rem;
     border: 1px solid rgb(196, 196, 196);
     border-radius: 10px;
@@ -38,14 +38,15 @@ input#espece {
     background-position: 10px;
 }
 
-.position__menu, .espece__menu {
+.ville__menu, .espece__menu {
     display: none;
     position: absolute;
     top: 3.5rem;
     background-color: white;
     width: 18rem;
     box-shadow: 0px 10px 13px -7px #000000;
-    border-radius: 10px;  
+    border-radius: 10px;
+    z-index: 3000; 
 }
 
 .menu__choix, .menu__no-result {

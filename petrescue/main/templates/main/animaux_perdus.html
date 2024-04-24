@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block form %}
-    <form id="filtres-resultats" method="post" action="{% url 'perdus' %}">
+    <form id="filtres-resultats" method="get" action="{% url 'perdus' %}">
 {% endblock %}
 
 
@@ -20,8 +20,16 @@
 
         <section class="annonces">
 
-            {% if position %}
-                <h2 class="annonces__titre-2">{{ espece }}s perdus à {{ position }}</h2>
+            {% if ville and espece %}
+                <h2 class="annonces__titre-2">
+                    {% if nb_animaux == 1 %}
+                    {{ nb_animaux }} {{ espece|lower }} perdu à {{ ville }}
+                    {% elif nb_animaux == 0 %}
+                    Aucun résultat
+                    {% else %}
+                    {{ nb_animaux }} {{ espece|lower }}s perdus à {{ ville }}
+                    {% endif %}
+                </h2>
             {% else %}
                 <h2 class="annonces__titre-2">Dernières annonces publiées</h2>
             {% endif %}
@@ -42,10 +50,6 @@
                 {% endfor %}
 
                 </div>
-                
-
-            {% else %}
-                <p>Pas d'annonces</p>
             {% endif %}
 
         </section>
