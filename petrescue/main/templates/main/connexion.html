@@ -8,6 +8,7 @@
 
     <form action="{% url 'connexion' %}" method="post">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
         <input name="identifiant" type="text" placeholder="Identifiant">
         <input name="mot_de_passe" type="password" placeholder="Mot de passe">
         <button name="connexion" type="submit">Connexion</button>

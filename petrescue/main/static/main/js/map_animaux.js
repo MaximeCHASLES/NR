@@ -1,3 +1,7 @@
+  /////////////
+ // ANIMAUX //
+/////////////
+
 const divCarte = document.querySelector('div#carte');
 const code = divCarte.dataset.code;
 const divAnnonces = document.querySelectorAll(".annonce");
@@ -61,6 +65,30 @@ function positionnerMarkers(annonces) {
         const lat = annonce.dataset.lat;
         const lng = annonce.dataset.lng;
         const latlng = L.latLng(lat, lng)
-        L.marker(latlng).addTo(map);
+        const m = L.marker(latlng)
+        m.on('mouseover', highlightOn)
+        m.on('mouseout', highlightOff)
+        m.addTo(map);
     })
 } // positionnerMarkers
+
+
+// Mise en surbrillance de l'annonce correspondante au marqueur survolé par le curseur.
+function highlightOn(event) {
+    const lat = event['latlng'].lat
+    const lng = event['latlng'].lng
+    const annonce = document.querySelector(`.annonce[data-lat="${lat}"][data-lng="${lng}"]`)
+    annonce.classList.add('highlight')
+    
+} // highlightOn
+
+
+// Enlève la mise en surbrillance de l'annonce lorsque le curseur quitte le marqueur.
+function highlightOff(event) {
+    const lat = event['latlng'].lat
+    const lng = event['latlng'].lng
+    const annonce = document.querySelector(`.annonce[data-lat="${lat}"][data-lng="${lng}"]`)
+    annonce.classList.remove('highlight')
+} // highlightOff
+
+

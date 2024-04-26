@@ -25,4 +25,25 @@ html {
     background-color: var(--color-background);
 }
 
+h1 {
+    font-size: 3rem;
+    font-family: sans-serif;
+}
+
+h2 {
+    font-size: 2rem;
+    font-family: sans-serif;
+}
+
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding: 0;
+}
+
+
+
 

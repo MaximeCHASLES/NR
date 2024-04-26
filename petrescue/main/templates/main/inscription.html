@@ -1,5 +1,11 @@
 {% extends "main/layout/base.html" %}
 
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'main/css/forms.css' %}">
+{% endblock %}
+
 {% block title %} | Inscription{% endblock %}
 
 {% block body %}

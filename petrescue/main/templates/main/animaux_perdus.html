@@ -40,12 +40,14 @@
                     <article class="annonce" data-lat="{{ animal.latitude }}" data-lng="{{ animal.longitude }}">
                         <h3 class="annonce__titre-3">Annonce n°{{ animal.id }}</h3>
                         <ul>
-                            <li>Nom de l'animal : {{ animal.name|title }}</li>
-                            <li>Espèce : {{ animal.specie|title }}</li>
-                            <li>Ville : {{ animal.location|title }}</li>
+                            <li>Nom de l'animal : {{ animal.nom|title }}</li>
+                            <li>Espèce : {{ animal.espece|title }}</li>
+                            <li>Ville : {{ animal.ville_nom|title }}</li>
                             <li>Date de l'annonce : {{ animal.date|date:"d/m/Y" }}</li>
                         </ul>
-                        <img class="annonce__img" src="{{ animal.photo.url }}" alt="">
+                        {% if animal.photo1 %}
+                            <img class="annonce__img" src="{{ animal.photo1.url }}" alt="">
+                        {% endif %}
                     </article>
                 {% endfor %}
 

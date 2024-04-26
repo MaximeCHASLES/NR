@@ -3,16 +3,22 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from main.models import Animal
-from .forms import FormulaireInscription
+from .forms import Inscription, PosterPerdu
 
+# @login_required(login_url='connexion')
 
 def index(request):
     """Page d'accueil de PetRescue.
 
     """
     return render(request, "main/index.html")
+
+
+def profil_utilisateur(request, nom_utilisateur):
+    return render(request, "main/profil.html")
 
 
 def animaux_trouves(request):
@@ -39,7 +45,7 @@ def animaux_perdus(request):
         ville = request.GET["ville"]
         espece = request.GET["espece"]
         code = request.GET["code"]
-        animaux = Animal.objects.filter(specie__iexact=espece, location__iexact=ville).order_by('-date')
+        animaux = Animal.objects.filter(espece__iexact=espece, ville_nom__iexact=ville, perdu=True).order_by('-date')
         nb_animaux = len(animaux)
 
         context = {
@@ -47,17 +53,19 @@ def animaux_perdus(request):
             "espece": espece,
             "code": code,
             "animaux": animaux,
-            "nb_animaux": nb_animaux
+            "nb_animaux": nb_animaux,
+            "perdu": True
         }
 
         return render(request, "main/animaux_perdus.html", context)
     
     else:
-        animaux = Animal.objects.all().order_by('-date')
+        animaux = Animal.objects.filter(perdu=True).order_by('-date')
 
         context = {
             "animaux": animaux,
-            "code": "0"
+            "code": "0",
+            "perdu": True
         }
     
         return render(request, "main/animaux_perdus.html", context)
@@ -67,7 +75,7 @@ def animaux_perdus(request):
 def connexion(request):
     """Page de connexion. 
     Indispensable pour le dépôt et la gestion des annonces.
-    """
+    """ 
     if request.method == "POST":
         identifiant = request.POST['identifiant']
         mot_de_passe = request.POST['mot_de_passe']
@@ -80,8 +88,8 @@ def connexion(request):
             context = {
                 "utilisateur": utilisateur
             }
-
-            return HttpResponseRedirect(reverse('accueil'))
+            return redirect(reverse('profil_utilisateur', args=[utilisateur.username]))
+            # return HttpResponseRedirect(reverse('accueil'), context)
         else:
             message = "Identifiant ou mot de passe incorrect"
 
@@ -105,7 +113,7 @@ def inscription(request):
     """Page d'inscription.
     """
     if request.method == "POST":
-        formulaire = FormulaireInscription(request.POST)
+        formulaire = Inscription(request.POST)
         if formulaire.is_valid():
             identifiant = formulaire.cleaned_data['username']
             prenom = formulaire.cleaned_data['first_name']
@@ -127,7 +135,7 @@ def inscription(request):
             login(request, utilisateur)
             return redirect('accueil')
 
-    formulaire_inscription = FormulaireInscription()
+    formulaire_inscription = Inscription()
 
     context = {
         'formulaire': formulaire_inscription
@@ -135,9 +143,39 @@ def inscription(request):
 
     return render(request, "main/inscription.html", context)
 
+def poster(request):
+    return render(request, "main/poster-annonce_choix.html")
 
 
-def deposer_annonce(request):
-    """
-    """
-    return render(request, "main/report.html")
+def poster_perdu(request):
+    if request.method == "POST":
+        formulaire = PosterPerdu(request.POST, request.FILES)
+        
+        if formulaire.is_valid():
+            animal = formulaire.save(commit=False)
+            if request.user.is_authenticated:
+                animal.utilisateur = request.user
+            animal.ville_nom = request.POST['ville_nom']
+            animal.ville_code = request.POST['ville_code']
+            animal.departement_nom = request.POST['departement_nom']
+            animal.departement_code = request.POST['departement_code']
+            animal.latitude = request.POST['latitude']
+            animal.longitude = request.POST['longitude']
+            animal.perdu = True
+            animal.save()
+        return HttpResponseRedirect(reverse('profil_utilisateur', args=[request.user.username]))
+
+    else:
+
+        formulaire = PosterPerdu()
+
+    context = {
+        "formulaire": formulaire
+    }
+
+    return render(request, "main/poster-annonce_1.html", context)
+
+
+
+
+

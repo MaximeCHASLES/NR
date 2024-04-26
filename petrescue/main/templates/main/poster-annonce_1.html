@@ -1,0 +1,34 @@
+{% extends "main/layout/poster-annonce.html" %}
+
+{% block section_carte %}
+    <h2>Placer un marqueur à l'endroit où vous avez vu votre animal pour la dernière fois.</h2>
+    <div id="carte_annonce"></div>
+{% endblock %}
+
+{% block section_formulaire %}
+    <h2>Informations générales</h2>
+    <form action="{% url 'poster_perdu' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formulaire }}
+        <input value="" type="hidden" name="ville_nom" id="id_ville_nom">
+        <input value="" type="hidden" name="ville_code" id="id_ville_code">
+        <input value="" type="hidden" name="departement_nom" id="id_departement_nom">
+        <input value="" type="hidden" name="departement_code" id="id_departement_code">
+        <input value="" type="hidden" name="latitude" id="id_latitude">
+        <input value="" type="hidden" name="longitude" id="id_longitude">
+        <input value="Valider" type="submit">
+    </form>
+{% endblock %}
+
+
+
+
+
+<!-- # Informations de localisation
+            "ville_nom",
+            "ville_code",
+            "departement_nom",
+            "departement_code",
+            "latitude",
+            "longitude", -->
+
