@@ -1,6 +1,6 @@
 # PetRescue
 ## Description
-PetRescue est une application web développée avec Django qui permet aux utilisateurs de signaler les animaux perdus ou trouvés dans leur région. 
+PetRescue est une application web développée avec Django qui permet aux utilisateurs de signaler les animaux perdus ou trouvés dans leur région. Les utilisateurs doivent s'inscrire pour signaler un animal perdu ou trouvé. L'annonce est ainsi répertoriée et visible par les visiteurs. L'interface utilisateur est majoritairement orientée carte. Ainsi il est possible de déclarer/repérer les signalements directement via des marqueurs sur cette carte.
 
 ## Installation
 1. Clonez le dépôt GitHub :
